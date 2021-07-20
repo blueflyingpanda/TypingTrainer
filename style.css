@@ -1,0 +1,48 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 13vh;
+}
+
+#stats{
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 5vh;
+}
+
+#correct{
+    color: green;
+}
+
+#incorrect{
+    color: red;
+}
+
+input{
+    height: 5vh;
+    font-size: 4vh;
+    font-weight: bolder;
+}
+
+button{
+    height: 5vh;
+    font-size: 4vh;
+    font-weight: bolder;
+}
+
+h1{
+    font-size: 8vh;
+    font-weight: bolder;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
