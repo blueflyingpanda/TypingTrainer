@@ -31378,12 +31378,13 @@ $(document).ready(function() {
 //
 var btn = $("#check");
 var headline = $("#toPrint");
+var output = $("#out");
 var userInput = $("#printed");
 var stats = $("#stats");
 var correctAnswer = $("#correct");
 var incorrectAnswer = $("#incorrect");
 var averageTime = $("#avrT");
-var start, end, avrTime = 0;
+var start, end, avrTime = 0, index = 0, incorrect = 0, correct = 0;
 
 window.addEventListener("keydown", function(e){
     if(e.key == 'Shift'){
@@ -31396,7 +31397,6 @@ window.addEventListener("keydown", function(e){
         btn.trigger('click');
 });
 
-var index = 0, incorrect = 0, correct = 0;
 // var words = ["ТРАКТОР", "КНИГА", "УЛИЦА", "ФОНАРЬ"];
 manyWords = shuffle(manyWords);
 var word = manyWords[index];
@@ -31409,42 +31409,49 @@ var stop = setInterval(function () {
         if (!start)
             start = performance.now();
         headline.html(word.length);
+        output.html("");
     }
     else {
-        if (formatedWord.length)
-            headline.html(formatedWord);
-        else
-            headline.html(word);
+        headline.html(word);
+        output.html(formatedWord);
+        // if (formatedWord.length){
+        //     headline.html(word);
+        //     output.html(formatedWord);
+        // }
+        // else
+        //     headline.html(word);
     }
 }, 100)
 
-function highlightMistake(input){
+function highlightMistake(input, userInput){
     if (input.length > word.length){
-        if (input.indexOf(word) == -1){
-            formatedWord += "<span style='color:red'>" + word + "</span>";
-            return;
-        }
-        if (input.indexOf(word) > 0){
-            formatedWord += "<span style='color:red'>...</span>";
-        }
-        formatedWord += "<span style='color:green'>" + word + "</span>";
-        if (input.indexOf(word) + word.length < input.length)
-            formatedWord += "<span style='color:red'>...</span>";
+        alert("Много букв\n" + "Нужно: " + word.length + "\nУ тебя: " + input.length);
+        // if (input.indexOf(word) == -1){
+        //     formatedWord += "<span style='color:red'>" + word + "</span>";
+        //     return;
+        // }
+        // if (input.indexOf(word) > 0){
+        //     formatedWord += "<span style='color:red'>...</span>";
+        // }
+        // formatedWord += "<span style='color:green'>" + word + "</span>";
+        // if (input.indexOf(word) + word.length < input.length)
+        //     formatedWord += "<span style='color:red'>...</span>";
     }
     else if (input.length < word.length){
-        if (word.indexOf(input) == -1){
-            formatedWord += "<span style='color:red'>" + word + "</span>";
-            return;
-        }
-        if (word.indexOf(input) > 0){
-            formatedWord += "<span style='color:red'>" + word.substring(0, word.indexOf(input)) + "</span>" +
-                "<span style='color:green'>" + input + "</span>";
-        }
-        else {
-            formatedWord += "<span style='color:green'>" + input + "</span>";
-        }
-        if (word.length > word.indexOf(input) + input.length)
-            formatedWord += "<span style='color:red'>" + word.substr(word.indexOf(input) + input.length) + "</span>";
+        alert("Мало букв\n" + "Нужно: " + word.length + "\nУ тебя: " + input.length);
+        // if (word.indexOf(input) == -1){
+        //     formatedWord += "<span style='color:red'>" + word + "</span>";
+        //     return;
+        // }
+        // if (word.indexOf(input) > 0){
+        //     formatedWord += "<span style='color:red'>" + word.substring(0, word.indexOf(input)) + "</span>" +
+        //         "<span style='color:green'>" + input + "</span>";
+        // }
+        // else {
+        //     formatedWord += "<span style='color:green'>" + input + "</span>";
+        // }
+        // if (word.length > word.indexOf(input) + input.length)
+        //     formatedWord += "<span style='color:red'>" + word.substr(word.indexOf(input) + input.length) + "</span>";
     }
     else {
         var i = 0;
@@ -31452,7 +31459,7 @@ function highlightMistake(input){
             if (input[i] == word[i]) {
                 formatedWord += "<span style='color:green'>"
                 while (input[i] == word[i] && i < input.length && i < word.length) {
-                    formatedWord += word[i];
+                    formatedWord += input[i];
                     i++;
                 }
                 formatedWord += "</span>";
@@ -31460,7 +31467,7 @@ function highlightMistake(input){
             else {
                 formatedWord += "<span style='color:red'>"
                 while (input[i] != word[i] && i < input.length && i < word.length) {
-                    formatedWord += word[i];
+                    formatedWord += input[i];
                     i++;
                 }
                 formatedWord += "</span>";
@@ -31491,12 +31498,12 @@ btn.click(function () {
         else {
             avrTime = Math.floor((avrTime * correct + timeDiff)  / (correct + 1));
         }
-        console.log(timeDiff, avrTime)
+        // console.log(timeDiff, avrTime)
         averageTime.text("среднее время ответа: " + avrTime + "сек");
         correctAnswer.text("верно: " + ++correct);
     }
     else {
-        highlightMistake(input);
+        highlightMistake(input, userInput);
         incorrectAnswer.text("неверно: " + ++incorrect);
     }
 });

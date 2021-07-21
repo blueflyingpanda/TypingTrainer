@@ -7,7 +7,11 @@ div{
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding-top: 13vh;
+    padding-top: 5vh;
+}
+
+#output{
+    padding-top: 0vh;
 }
 
 #stats{
@@ -25,14 +29,13 @@ div{
 }
 
 input{
-    height: 5vh;
-    font-size: 4vh;
+    font-size: 8vh;
     font-weight: bolder;
+    /* color: indigo; */
 }
 
 button{
-    height: 5vh;
-    font-size: 4vh;
+    font-size: 8vh;
     font-weight: bolder;
 }
 
