@@ -31373,7 +31373,6 @@ function shuffle(array) {
     return array;
 }
 
-
 $(document).ready(function() {
 //
 var btn = $("#check");
@@ -31384,7 +31383,23 @@ var stats = $("#stats");
 var correctAnswer = $("#correct");
 var incorrectAnswer = $("#incorrect");
 var averageTime = $("#avrT");
+var slider = $("#myRange");
 var start, end, avrTime = 0, index = 0, incorrect = 0, correct = 0;
+var maxLen = 14;
+
+function getWord(){
+    if (index >= manyWords.length){
+        manyWords = shuffle(manyWords);
+        index = 0;
+    }
+    while (manyWords[index].length > maxLen){
+        if (++index >= manyWords.length){
+            manyWords = shuffle(manyWords);
+            index = 0;
+        }
+    }
+    return manyWords[index];
+}
 
 window.addEventListener("keydown", function(e){
     if(e.key == 'Shift'){
@@ -31399,7 +31414,7 @@ window.addEventListener("keydown", function(e){
 
 // var words = ["ТРАКТОР", "КНИГА", "УЛИЦА", "ФОНАРЬ"];
 manyWords = shuffle(manyWords);
-var word = manyWords[index];
+var word = getWord();
 var formatedWord = "";
 
 headline.html(word);
@@ -31491,7 +31506,7 @@ btn.click(function () {
             index = 0;
             manyWords = shuffle(manyWords);
         }
-        word = manyWords[index];
+        word = getWord();
         if (avrTime == 0){
             avrTime = timeDiff;
         }
@@ -31506,6 +31521,10 @@ btn.click(function () {
         highlightMistake(input, userInput);
         incorrectAnswer.text("неверно: " + ++incorrect);
     }
+});
+
+slider.on('change', function (){
+    maxLen = slider.val();
 });
 //
 });
