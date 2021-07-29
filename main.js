@@ -31516,6 +31516,7 @@ btn.click(function () {
             manyWords = shuffle(manyWords);
         }
         word = getWord();
+        utter(word);
         if (avrTime == 0){
             avrTime = timeDiff;
         }
