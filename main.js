@@ -31373,11 +31373,19 @@ function shuffle(array) {
     return array;
 }
 
+function utter(str){
+    let phrase = new SpeechSynthesisUtterance(str);
+    phrase.lang = 'ru-RU'
+    speechSynthesis.speak(phrase);
+}
+
 $(document).ready(function() {
 //
 var btn = $("#check");
 var headline = $("#toPrint");
+var head = $("#head");
 var output = $("#out");
+var out = $("#output");
 var userInput = $("#printed");
 var stats = $("#stats");
 var correctAnswer = $("#correct");
@@ -31386,6 +31394,7 @@ var averageTime = $("#avrT");
 var slider = $("#myRange");
 var start, end, avrTime = 0, index = 0, incorrect = 0, correct = 0;
 var maxLen = 14;
+var input
 
 function getWord(){
     if (index >= manyWords.length){
@@ -31495,7 +31504,7 @@ btn.click(function () {
     if (userInput.val().length == 0)
         return;
     formatedWord = "";
-    var input = userInput.val().toUpperCase().trim();
+    input = userInput.val().toUpperCase().trim();
     userInput.val("");
     if (input == word){
         end = performance.now();
@@ -31521,6 +31530,14 @@ btn.click(function () {
         highlightMistake(input, userInput);
         incorrectAnswer.text("неверно: " + ++incorrect);
     }
+});
+
+head.click(function (){
+    utter(word);
+});
+
+out.click(function (){
+    utter(input)
 });
 
 slider.on('change', function (){
