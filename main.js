@@ -31538,7 +31538,7 @@ head.click(function (){
 });
 
 out.click(function (){
-    utter(input)
+    utter(input);
 });
 
 slider.on('change', function (){
